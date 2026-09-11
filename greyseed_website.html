@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greyseed — Улаанбаатар</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #221f1d;
+    --charcoal-2: #2c2825;
+    --ember: #c1502e;
+    --ember-dim: #8f3b23;
+    --seed: #c9a567;
+    --paper: #efe9de;
+    --paper-dim: #e2dbcb;
+    --moss: #5b6650;
+    --ink: #221f1d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Serif 4', serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: inherit;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--charcoal);
+    border-bottom: 1px solid rgba(239,233,222,0.12);
+  }
+  nav .wrap {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    font-family: 'Oswald', sans-serif;
+    color: var(--paper);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .brand span { color: var(--ember); }
+  .navlinks { display: flex; list-style: none; }
+  .navlinks li + li { margin-left: 30px; }
+  .navlinks a {
+    color: var(--paper-dim);
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  .navlinks a:hover { color: var(--seed); }
+
+  /* HERO */
+  .hero {
+    background: var(--charcoal);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+    padding: 90px 0 0;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -10%;
+    top: -20%;
+    width: 60%;
+    height: 140%;
+    background: radial-gradient(ellipse at center, var(--ember-dim) 0%, transparent 68%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 2; }
+  .hero h1 {
+    font-size: clamp(56px, 11vw, 128px);
+    line-height: 0.88;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  .hero .kr {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    text-transform: none;
+    font-size: 19px;
+    color: var(--seed);
+    margin-top: 18px;
+    max-width: 480px;
+    letter-spacing: 0;
+  }
+  .stat-strip {
+    margin-top: 56px;
+    border-top: 1px solid rgba(239,233,222,0.16);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .stat-strip div {
+    padding: 20px 0 26px;
+    border-right: 1px solid rgba(239,233,222,0.16);
+  }
+  .stat-strip div:last-child { border-right: none; }
+  .stat-strip .num {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    color: var(--seed);
+  }
+  .stat-strip .lbl {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    font-family: 'Oswald', sans-serif;
+    margin-top: 4px;
+  }
+
+  /* SECTION HEADERS */
+  .section { padding: 88px 0; }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 44px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 18px;
+  }
+  .section-head h2 { font-size: 38px; }
+  .section-head .count {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    color: var(--ember);
+  }
+
+  /* MENU */
+  .menu-note {
+    max-width: 560px;
+    font-size: 17px;
+    color: #4a453f;
+    margin-bottom: 40px;
+  }
+  .menu-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .menu-grid > div { width: 46%; }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(34,31,29,0.14);
+  }
+  .menu-item .name {
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .menu-item .tag {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--ember);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* VIBE / ABOUT */
+  .vibe {
+    background: var(--moss);
+    color: var(--paper);
+    padding: 90px 0;
+  }
+  .vibe .wrap { max-width: 720px; }
+  .vibe p.lead {
+    font-size: 27px;
+    font-style: italic;
+    line-height: 1.45;
+  }
+  .vibe .credit {
+    margin-top: 22px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--seed);
+  }
+
+  /* REVIEWS */
+  .reviews-list { display: flex; flex-direction: column; }
+  .review {
+    padding: 26px 0;
+    border-bottom: 1px solid rgba(34,31,29,0.14);
+    display: flex;
+    gap: 24px;
+  }
+  .review > div:first-child { width: 160px; flex-shrink: 0; }
+  .review > div:last-child { flex: 1; }
+  .review .who {
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+  }
+  .review .stars { color: var(--ember); font-size: 13px; margin-top: 6px; letter-spacing: 2px; }
+  .review .when { font-size: 12px; color: #7a756c; margin-top: 6px; }
+  .review .txt { font-size: 16px; color: #322e2a; }
+
+  /* VISIT */
+  .visit {
+    background: var(--charcoal);
+    color: var(--paper);
+    padding: 90px 0 60px;
+  }
+  .visit-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+  }
+  .visit-grid > div { flex: 1 1 320px; }
+  .visit h3 {
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--seed);
+    margin-bottom: 14px;
+  }
+  .visit p { font-size: 16px; color: var(--paper-dim); margin-bottom: 6px; }
+  .visit a.cta {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 13px 26px;
+    background: var(--ember);
+    color: var(--paper);
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .map-frame {
+    width: 100%;
+    height: 260px;
+    border: none;
+    filter: grayscale(0.4) contrast(1.05);
+  }
+  footer {
+    background: var(--charcoal);
+    border-top: 1px solid rgba(239,233,222,0.12);
+    padding: 22px 0;
+    color: #8b857c;
+    font-size: 12px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.04em;
+  }
+  footer .wrap { display: flex; justify-content: space-between; }
+
+  .menu-cat { margin-bottom: 54px; }
+  .menu-cat:last-child { margin-bottom: 0; }
+  .menu-cat h3 {
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    color: var(--ember);
+    margin-bottom: 6px;
+  }
+  .menu-item .mn {
+    display: block;
+    font-size: 13px;
+    color: #6b655c;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .menu-item .price {
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    white-space: nowrap;
+    padding-left: 12px;
+  }
+
+  /* MENU GALLERY */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .gallery a {
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(34,31,29,0.16);
+  }
+  .gallery img {
+    width: 100%;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+  .gallery a:hover img { transform: scale(1.04); }
+  .gallery figcaption {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #4a453f;
+    padding: 8px 2px 0;
+  }
+  @media (max-width: 760px) {
+    .gallery { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .gallery { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 760px) {
+    .navlinks { display: none; }
+    .stat-strip { grid-template-columns: 1fr 1fr; }
+    .stat-strip div:nth-child(2) { border-right: none; }
+    .menu-grid > div { width: 100%; }
+    .review { flex-direction: column; gap: 8px; }
+    .review > div:first-child { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">GREY<span>SEED</span></div>
+    <ul class="navlinks">
+      <li><a href="#menu">Цэс</a></li>
+      <li><a href="#gallery">Цэсний хуудас</a></li>
+      <li><a href="#reviews">Сэтгэгдэл</a></li>
+      <li><a href="#visit">Хаяг</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <h1>Greyseed</h1>
+    <p class="kr">Дэлхийн жорыг нэг ширээнд — гал дээр шарсан стейк, паста, Ази хоол нэг гал зуухнаас.</p>
+    <div class="stat-strip">
+      <div>
+        <div class="num">4.4 ★</div>
+        <div class="lbl">236 сэтгэгдэл</div>
+      </div>
+      <div>
+        <div class="num">₮40,000–100,000</div>
+        <div class="lbl">Хүн тутамд</div>
+      </div>
+      <div>
+        <div class="num">Нээлттэй</div>
+        <div class="lbl">23:00 цагт хаагдана</div>
+      </div>
+      <div>
+        <div class="num">Дотор хооллох</div>
+        <div class="lbl">+ Аваачих</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Цэс</h2>
+      <span class="count">Globally Inspired</span>
+    </div>
+    <p class="menu-note">Дэлхийн олон орны амтыг нэг гал зуухнаас — америк стейк, итали паста, тайландын карри, солонгос загвар цагаан будаа зэрэг 39 нэр төрлийн хоол.</p>
+
+    <div class="menu-cat">
+      <h3>СТАРТЕР</h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">1/ Chicken Taco <span class="tag">1 ширхэг</span></div><span class="mn">Тахианы мах, бяслаг, салса тако</span></div><div class="price">11,000₮</div></div>
+          <div class="menu-item"><div><div class="name">2/ Spring Roll</div><span class="mn">Хүйтэн зууш — сам хорхой, ногоо, вьетнам соус</span></div><div class="price">34,900₮</div></div>
+          <div class="menu-item"><div><div class="name">3/ Cheesy French Fries</div><span class="mn">Халуун ногоотой үхрийн мах, бяслагтай төмс</span></div><div class="price">32,900₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">4/ Beef Knee Bone Soup</div><span class="mn">Тойгны шөл — банш, улаан чавга, цагаан гаа</span></div><div class="price">37,900₮</div></div>
+          <div class="menu-item"><div><div class="name">5/ Spicy Seafood Soup</div><span class="mn">Халуун ногоотой далайн шөл</span></div><div class="price">39,900₮</div></div>
+          <div class="menu-item"><div><div class="name">6/ Pumpkin Soup</div><span class="mn">Хулуутай зутан шөл</span></div><div class="price">29,900₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>САЛАТ</h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">7/ Salmon Salad</div><span class="mn">Утсан яргай загастай салат, фета бяслаг</span></div><div class="price">38,900₮</div></div>
+          <div class="menu-item"><div><div class="name">8/ Steak Salad <span class="tag">Primeat</span></div><span class="mn">Стейк мах, ямааны бяслаг, жүрж</span></div><div class="price">39,900₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">9/ Beetroot Salad</div><span class="mn">Хүрэн манжин, хушга, ямааны бяслаг, жимс</span></div><div class="price">34,900₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>ГОЛ ХООЛ</h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">10/ Ribeye Steak <span class="tag">Primeat</span></div><span class="mn">Хар перцний сүмс, хуурсан ногоо, нухсан төмс</span></div><div class="price">71,900₮</div></div>
+          <div class="menu-item"><div><div class="name">11/ Salmon Steak</div><span class="mn">Яргай загасны стейк, ризотто будаа, цагаан сүмс</span></div><div class="price">73,900₮</div></div>
+          <div class="menu-item"><div><div class="name">12/ Teriyaki Chicken</div><span class="mn">Нухсан төмс, ногооны салад, терияки соус</span></div><div class="price">45,900₮</div></div>
+          <div class="menu-item"><div><div class="name">13/ Asian Steak <span class="tag">Primeat</span></div><span class="mn">Үхрийн нурууны мах, юуцай, хуурсан ногоо, будаа</span></div><div class="price">67,900₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">14/ Pan Seared White Fish</div><span class="mn">Цагаан загас, улаан лоолийн маринара соус</span></div><div class="price">49,900₮</div></div>
+          <div class="menu-item"><div><div class="name">15/ Pork Chop</div><span class="mn">Гахайн нурууны стейк, нухсан төмс, манго сүмс</span></div><div class="price">62,900₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>ПАСТА</h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">16/ Carbonara</div><span class="mn">Гахайн утсан мах, цөцгийн сүмс</span></div><div class="price">41,900₮</div></div>
+          <div class="menu-item"><div><div class="name">17/ Tomato Seafood Pasta</div><span class="mn">Далайн бүтээгдэхүүнтэй, улаан лооль сүүн сүмс</span></div><div class="price">42,900₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">18/ Linguine Pasta with Steak <span class="tag">Primeat</span></div><span class="mn">Үхрийн нурууны стейк, хөгцтэй бяслаг</span></div><div class="price">44,900₮</div></div>
+          <div class="menu-item"><div><div class="name">19/ Linguine with Chicken</div><span class="mn">Шарсан тахиа, бэл чинжүү сүмс, пармизан бяслаг</span></div><div class="price">38,900₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>АЗИ ХООЛ</h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">20/ Mexican Beef</div><span class="mn">Мексик халуун ногоотой гоймон</span></div><div class="price">34,900₮</div></div>
+          <div class="menu-item"><div><div class="name">21/ Beef Broccoli</div><span class="mn">Үхрийн махтай броккли, амталсан будаа</span></div><div class="price">34,900₮</div></div>
+          <div class="menu-item"><div><div class="name">22/ Rice Noodle with Beef Brisket</div><span class="mn">Үхрийн өвчүүтэй будааны гоймон, газрын самар</span></div><div class="price">34,900₮</div></div>
+          <div class="menu-item"><div><div class="name">23/ Green Curry Chicken</div><span class="mn">Тайландын ногоон карритай тахиа</span></div><div class="price">34,900₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">24/ Massaman Chicken</div><span class="mn">Массаман тахиа, хужир, ногоон луувин</span></div><div class="price">34,900₮</div></div>
+          <div class="menu-item"><div><div class="name">25/ Rice Bowl</div><span class="mn">Амталж хуурсан будаа /2 төрлийн мах сонгоно/</span></div><div class="price">36,900₮</div></div>
+          <div class="menu-item"><div><div class="name">26/ Lamb Skewer</div><span class="mn">Хонины махан шорлог, амталсан будаа</span></div><div class="price">44,900₮</div></div>
+          <div class="menu-item"><div><div class="name">27/ Chicken Skewer</div><span class="mn">Тахианы махан шорлог, шарсан талх</span></div><div class="price">42,900₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>БУРГЕР</h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">28/ Fat Burger <span class="tag">Primeat</span></div><span class="mn">Будуун бургер — өвчүү, татсан мах, гахайн утсан мах</span></div><div class="price">42,900₮</div></div>
+          <div class="menu-item"><div><div class="name">29/ Brisket Burger</div><span class="mn">Үхрийн өвчүүтэй бургер</span></div><div class="price">39,900₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">30/ Original Burger <span class="tag">Primeat</span></div><span class="mn">Үхрийн махтай бургер, шарсан төмс</span></div><div class="price">36,900₮</div></div>
+          <div class="menu-item"><div><div class="name">31/ Chicken Burger</div><span class="mn">Тахианы махтай бургер, шарсан төмс</span></div><div class="price">34,900₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>ПИЦЦА <span style="color:#8a8478;font-family:'Source Serif 4',serif;font-style:italic;font-size:13px;letter-spacing:0;">— 13"</span></h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">32/ Quattro Formaggi</div><span class="mn">Дөрвөн төрлийн бяслагтай пицца</span></div><div class="price">45,900₮</div></div>
+          <div class="menu-item"><div><div class="name">33/ Butter Chicken Pizza</div><span class="mn">Энэтхэг маягаар амталсан тахианы мах</span></div><div class="price">43,900₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">34/ Mexican</div><span class="mn">Үхрийн татсан мах, мексик чинжүү, тортилла чипс</span></div><div class="price">44,900₮</div></div>
+          <div class="menu-item"><div><div class="name">35/ Pepperoni</div><span class="mn">Пепперони, бяслаг</span></div><div class="price">44,900₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>ХУВААЛЦАХ ХООЛ</h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">36/ Meat Platter</div><span class="mn">Махан цуглуулга — өвчүү, шорлог, гоймон, будаа</span></div><div class="price">259,900₮</div></div>
+          <div class="menu-item"><div><div class="name">37/ Grilled Meat Salad <span class="tag">Large</span></div><span class="mn">Маханд дурлагсад салат</span></div><div class="price">69,000₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">38/ Smoked Salmon Salad <span class="tag">Large</span></div><span class="mn">Утсан яргай загастай салат</span></div><div class="price">69,000₮</div></div>
+          <div class="menu-item"><div><div class="name">39/ Baked Brie Platter</div><span class="mn">Жижиг / том хэмжээтэй</span></div><div class="price">46,000₮ / 75,000₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-cat">
+      <h3>ДЕСЕРТ</h3>
+      <div class="menu-grid">
+        <div>
+          <div class="menu-item"><div><div class="name">Cheese Cake</div></div><div class="price">22,900₮</div></div>
+          <div class="menu-item"><div><div class="name">Mixed Ice Cream</div></div><div class="price">22,900₮</div></div>
+        </div>
+        <div>
+          <div class="menu-item"><div><div class="name">Affogato</div></div><div class="price">16,000₮</div></div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:#8a8478;margin-top:10px;">НӨАТ 10%, ХХАТ 2% багтсан. Үйлчилгээний 5% орооогүй болно. Аллерген орц агуулсан хоолны талаар зөөгчөөс лавлана уу.</p>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Цэсний хуудас</h2>
+      <span class="count">4 хуудас</span>
+    </div>
+    <figure style="margin:0;">
+      <div class="gallery">
+        <a href="menu-1-cover.jpg" target="_blank">
+          <img src="menu-1-cover.jpg" alt="Стартер, шөл, салатны цэс">
+        </a>
+        <a href="menu-2-main.jpg" target="_blank">
+          <img src="menu-2-main.jpg" alt="Гол хоол, пастаны цэс">
+        </a>
+        <a href="menu-3-asian.jpg" target="_blank">
+          <img src="menu-3-asian.jpg" alt="Ази хоолны цэс">
+        </a>
+        <a href="menu-4-burger.jpg" target="_blank">
+          <img src="menu-4-burger.jpg" alt="Бургер, пицца, десертийн цэс">
+        </a>
+      </div>
+    </figure>
+    <p style="font-size:12px;color:#8a8478;margin-top:14px;">Зураг дээр дарж бүтэн хэмжээгээр үзнэ үү.</p>
+  </div>
+</section>
+
+<section class="vibe">
+  <div class="wrap">
+    <p class="lead">Зочид өвчүүтэй бургер, цөцгийн сүмстэй карбонарыг байнга захиалдаг — гал тогооны өрөөнд ачаалал ихсэх үед ч үйлчилгээ тогтвортой хэвээр.</p>
+    <div class="credit">— Greyseed-ийн байнгын үйлчлүүлэгчдийн сэтгэгдлээс</div>
+  </div>
+</section>
+
+<section class="section" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Сэтгэгдэл</h2>
+      <span class="count">4.4 / 236 үнэлгээ</span>
+    </div>
+    <div class="reviews-list">
+      <div class="review">
+        <div>
+          <div class="who">Hangai Bna</div>
+          <div class="stars">★★★★★</div>
+          <div class="when">6 сарын өмнө</div>
+        </div>
+        <div class="txt">Мексик маягийн үхрийн мах болон далайн бүтээгдэхүүнтэй паста, стейк салат захиалсан — хоол бүр тэнцвэртэй амттай, пастаны цөцгийтэй улаан лоольны сүмс онцгой сайхан байсан.</div>
+      </div>
+      <div class="review">
+        <div>
+          <div class="who">Gana</div>
+          <div class="stars">★★★★☆</div>
+          <div class="when">8 сарын өмнө</div>
+        </div>
+        <div class="txt">Бургер, гol yргай стейк, карбонара бүгд сайн байсан; завгүй үдэш гал тогоо арай удаан байсан ч хэмжээ ихтэй хоолны хувьд зохистой байлаа.</div>
+      </div>
+      <div class="review">
+        <div>
+          <div class="who">Yuzu</div>
+          <div class="stars">★★★★☆</div>
+          <div class="when">3 сарын өмнө</div>
+        </div>
+        <div class="txt">Карбонарагийн цөцгий амттай байсан ч бүтэн хар перц тэнцвэрийг алдагдуулсан. Үйлчилгээ, орчин тогтвортой сайн байлаа.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="wrap">
+    <div class="section-head" style="border-bottom-color: rgba(239,233,222,0.2);">
+      <h2>Хаяг</h2>
+      <span class="count">Seoul Street, СБД</span>
+    </div>
+    <div class="visit-grid">
+      <div>
+        <h3>Хаяг</h3>
+        <p>WW72+5J6 Seoul St</p>
+        <p>СБД, 3-р хороо, Улаанбаатар 14252</p>
+        <h3 style="margin-top:26px;">Утас</h3>
+        <p>7717 2323</p>
+        <h3 style="margin-top:26px;">Цагийн хуваарь</h3>
+        <p>Өдөр бүр · 23:00 цагт хаагдана</p>
+        <a class="cta" href="tel:77172323">Ширээ захиалах</a>
+      </div>
+      <div>
+        <iframe class="map-frame" loading="lazy" src="https://www.google.com/maps?q=WW72%2B5J6+Seoul+St,+Ulaanbaatar&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>GREYSEED — УЛААНБААТАР</span>
+    <span>ДОТОР ХООЛЛОХ · АВААЧИХ</span>
+  </div>
+</footer>
+
+</body>
+</html>
